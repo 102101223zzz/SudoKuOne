@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hs.sudokuone.mapper.RecordMapper">
+    <select id="SelectAll" resultType="com.hs.sudokuone.pojo.Record">
+        select *from sudoku.record
+        order by time desc
+        limit 20
+    </select>
+    <insert id="InsertRecord" parameterType="com.hs.sudokuone.pojo.Record">
+        insert into sudoku.record(name,time)
+        values (#{name},#{time});
+    </insert>
+    <select id="SelectOne" resultType="com.hs.sudokuone.pojo.Record">
+        select *from sudoku.record
+        where name=#{name}
+</select>
+</mapper>
