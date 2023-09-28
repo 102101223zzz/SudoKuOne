@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sudoku Game</title>
+  <style>
+    body {
+      background-image:url(sudoku.webp);
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      animation: backgroundAnimation 10s infinite;
+    }
+    @keyframes backgroundAnimation {
+      0% {
+        background-position: center;
+      }
+      50% {
+        background-position: top;
+      }
+      100% {
+        background-position: center;
+      }
+    }
+    @keyframes jump {
+     0% { transform: scale(1); }
+     50% { transform: scale(1.2); }
+     100% { transform: scale(1); }
+     0% { color: orangered; }
+     50% { color: yellow; }
+     100% { color: orange; }
+     }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      color: rgb(251, 230, 0);
+      font-family: Arial, sans-serif;
+    }
+
+    h1 {
+      font-size: 96px;
+      margin-bottom: 20px;
+      font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    }
+
+    .buttons {
+      display: inline-flex;
+      gap: 20px;
+    }
+    .button {
+      padding: 10px 20px;
+      background-color: #14d8ea;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 24px;
+      cursor: pointer;
+    }
+    .easyButton {
+      padding: 10px 20px;
+      background-color: #14d8ea;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 24px;
+      cursor: pointer;
+    }
+    .mediumButton {
+      padding: 10px 20px;
+      background-color: #14d8ea;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 24px;
+      cursor: pointer;
+    }
+    .hardButton {
+         padding: 10px 20px;
+         background-color: #14d8ea;
+         color: white;
+         border: none;
+         border-radius: 5px;
+         font-size: 24px;
+         cursor: pointer;
+       }
+    .button:hover {
+      background-color: #ecc96a;
+    }
+    .mediumButton:hover {
+      background-color: #ecc96a;
+    }
+    .easyButton:hover {
+      background-color: #ecc96a;
+    }
+    .hardButton:hover {
+      background-color: #ecc96a;
+    }
+    .clock {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      font-size: 54px;
+      color: rgb(11, 240, 221);
+      font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    }
+    .music-button {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      padding: 10px 20px;
+      background-color: #10f2d8;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    .music-button:hover {
+      background-color: #ecc96a;
+    }
+    .text {
+      animation: jump 1s infinite;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 class="text">Sudoku Game</h1>
+    <div class="buttons">
+      <button id="start-game-button" class="button" onclick="redirect(1);">开始游戏</button>
+      <button id="leaderboard-button" class="button">排行榜</button>
+<!--      //把简单和中等困难这三个按钮设置为只能同时选中一个-->
+<!--      //把简单和中等困难这三个按钮设置为只能同时选中一个-->
+      <button id="easy-button" class="easyButton" value=1>简单</button>
+      <button id="medium-button" class="mediumButton"value=2>中等</button>
+      <button id="hard-button" class="hardButton"value=3>困难</button>
+    </div>
+
+<!--      <button id="easy-button" class="button" value="1">简单</button>-->
+<!--      <button id="medium-button" class="button"value="2">中等</button>-->
+<!--      <button id="hard-button" class="button"value="3">困难</button>-->
+  <div class="clock"></div>
+  <button class="music-button">Music</button>
+  </div>
+  <script>
+    var easyButton = document.getElementById('easy-button');
+    var mediumButton = document.getElementById('medium-button');
+    var hardButton = document.getElementById('hard-button');
+
+    easyButton.addEventListener('click', function() {
+      redirect(1)
+    });
+
+    mediumButton.addEventListener('click', function() {
+      redirect(2)
+    });
+
+    hardButton.addEventListener('click', function() {
+      redirect(3)
+    });
+    function updateTime() {
+      var now = new Date();
+      var hours = now.getHours();
+      var minutes = now.getMinutes();
+      var seconds = now.getSeconds();
+      var timeString = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+      document.querySelector('.clock').textContent = timeString;
+    }
+
+    setInterval(updateTime, 1000);
+
+    var audio = new Audio('D:\img\Gang－Higher Brothers feat.j.mag　公众号说唱聚集地.mp3'); // 替换为您的音乐文件路径
+    var musicButton = document.querySelector('.music-button');
+
+//     musicButton.addEventListener('click', function() {
+//       if (musicButton.addEventListener('click', function() {
+//   if (audio.paused) {
+//     audio.play();
+//   } else {
+//     audio.pause();
+//   }
+// });
+</script>
+  <script language="javascript" type="text/javascript">
+    function redirect(diff){
+      let url="NewSudoku?difficulty=";
+        if (diff===1){
+          url=url+"1";
+        }
+        else if (diff===2){
+          url=url+"2";
+        }
+        else if (diff===3){
+          url=url+"3";
+        }
+        //默认为1
+        else url=url+"1";
+        console.log(url)
+        window.location.href = url;
+    }
+  </script>
+<script>
+      function updateTime() {
+        var now = new Date();
+        var hours = now.getHours();
+        var minutes = now.getMinutes();
+        var seconds = now.getSeconds();
+        var time
+        var timeString = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        document.querySelector('.clock').textContent = timeString;
+      }
+
+      setInterval(updateTime, 1000);
+    //   var startGameButton = document.getElementById('start-game-button');
+    // startGameButton.addEventListener('click', function() {
+    //   let url="localhost:8999/NewSudoku?difficulty="
+    //   if (easyButton.value()!=null){
+    //     url=url+easyButton.value();
+    //   }
+    //   else if (mediumButton.value()!=null){
+    //     url=url+mediumButton.value();
+    //   }
+    //   else if (hardButton.value()!=null){
+    //     url=url+hardButton.value();
+    //   }
+    //   window.location.href = "url";
+    // });
+
+
+    var leaderboardButton = document.getElementById('leaderboard-button');
+    leaderboardButton.addEventListener('click', function() {
+      window.location.href = 'leaderboard.html';
+    });
+    </script>
+</body>
+</html>
