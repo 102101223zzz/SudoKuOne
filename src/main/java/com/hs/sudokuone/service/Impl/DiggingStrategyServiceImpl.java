@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 public class DiggingStrategyServiceImpl implements DiggingStrategyService {
     @Autowired
     SolveService solver;
+
     public int[][] digHolesHard(int[][] matrix, int lowerBound)
     {
         int[][] visited = new int[N][N];

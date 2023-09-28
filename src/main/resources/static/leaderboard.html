@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>排行榜</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      color: #ecc96a;
+      background: linear-gradient(to right, #06f9f5, #ffffff) fixed;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      animation: backgroundAnimation 10s infinite;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .button {
+      padding: 10px 20px;
+      background-color: #ecc96a;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      margin: 0 10px;
+    }
+
+    .button:hover {
+      background-color: #ecc96a;
+    }
+
+    table {
+      margin: 0 auto;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 10px;
+      text-align: center;
+      border: 1px solid #ccc;
+    }
+  </style>
+</head>
+<body>
+  <h1>排行榜</h1>
+  <div class="buttons">
+    <button id="easy-button" class="button">简单</button>
+    <button id="medium-button" class="button">中等</button>
+    <button id="hard-button" class="button">困难</button>
+  </div>
+  <table id="leaderboard-table">
+    <thead>
+      <tr>
+        <th> 排 名 </th>
+        <th> 用  户  名 </th>
+        <th> 游 戏 时 间 </th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- 排行榜数据将通过JavaScript动态添加到这里 -->
+    </tbody>
+  </table>
+
+  <script>
+    var leaderboardTable = document.getElementById('leaderboard-table');
+    var easyButton = document.getElementById('easy-button');
+    var mediumButton = document.getElementById('medium-button');
+    var hardButton = document.getElementById('hard-button');
+
+    easyButton.addEventListener('click', function() {
+      // 清空排行easyButton.addEventListener('click', function() {
+  // 清空排行榜表格
+  leaderboardTable.innerHTML = '';
+
+// 模拟简单难度的排行榜数据
+var leaderboardData = [
+  { username: 'User1', time: '00:10' },
+  { username: 'User2', time: '00:15' },
+  { username: 'User3', time: '00:20' }
+];
+
+// 动态添加排行榜数据到表格
+leaderboardData.forEach(function(data) {
+  var row = document.createElement('tr');
+  var usernameCell = document.createElement('td');
+  var timeCell = document.createElement('td');
+
+  usernameCell.textContent = data.username;
+  timeCell.textContent = data.time;
+
+  row.appendChild(usernameCell);
+  row.appendChild(timeCell);
+
+  leaderboardTable.appendChild(row);
+});
+});
+
+mediumButton.addEventListener('click', function() {
+// 清空排行榜表格
+leaderboardTable.innerHTML = '';
+
+// 模拟中等难度的排行榜数据
+var leaderboardData = [
+  { username: 'User4', time: '00:30' },
+  { username: 'User5', time: '00:35' },
+  { username: 'User6', time: '00:40' }
+];
+
+// 动态添加排行榜数据到表格
+leaderboardData.forEach(function(data) {
+  var row = document.createElement('tr');
+  var usernameCell = document.createElement('td');
+  var timeCell = document.createElement('td');
+
+  usernameCell.textContent = data.username;
+  timeCell.textContent = data.time;
+
+  row.appendChild(usernameCell);
+  row.appendChild(timeCell);
+
+  leaderboardTable.appendChild(row);
+});
+});
+
+hardButton.addEventListener('click', function() {
+// 清空排行榜表格
+leaderboardTable.innerHTML = '';
+
+// 模拟困难难度的排行榜数据
+var leaderboardData = [
+  { username: 'User7', time: '01:00' },
+  { username: 'User8', time: '01:10' },
+  { username: 'User9', time: '01:20' }
+];
+
+// 动态添加排行榜数据到表格
+leaderboardData.forEach(function(data) {
+  var row = document.createElement('tr');
+  var usernameCell = document.createElement('td');
+  var timeCell = document.createElement('td');
+
+  usernameCell.textContent = data.username;
+  timeCell.textContent = data.time;
+
+  row.appendChild(usernameCell);
+  row.appendChild(timeCell);
+
+  leaderboardTable.appendChild(row);
+});
+});
