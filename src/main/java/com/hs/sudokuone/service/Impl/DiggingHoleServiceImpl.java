@@ -22,14 +22,12 @@ public class DiggingHoleServiceImpl implements DiggingHoleService {
     DiggingHoleServiceImpl() {
         difficultyMap.put(1, 60);
         difficultyMap.put(2, 49);
-        difficultyMap.put(3, 35);
-        difficultyMap.put(4, 31);
-        difficultyMap.put(5, 27);
+        difficultyMap.put(3, 30);
     }
 
     public int[][] digHoles(int difficulty, int matrix[][]) {
         int lowerBound = difficultyMap.get(difficulty);
-        if (difficulty < 4) {
+        if (difficulty <= 3) {
             return diggingStrategyService.digHolesNormal(matrix, lowerBound);
         } else {
             return diggingStrategyService.digHolesHard(matrix, lowerBound);

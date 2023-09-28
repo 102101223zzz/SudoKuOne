@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Time;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static com.baomidou.mybatisplus.core.toolkit.SystemClock.now;
 
@@ -22,6 +23,7 @@ public class NewSudokuServiceImpl implements NewSudokuService {
     DiggingHoleServiceImpl diggingHoleService;
     @Autowired
     ResultValidatorService resultValidatorService;
+
     public SudoKuRtn NewSudoku(int difficulty)
     {
         SudoKuRtn sudoku = new SudoKuRtn();
@@ -35,5 +37,6 @@ public class NewSudokuServiceImpl implements NewSudokuService {
     public boolean SubmitSudoku(SudoKuRtn sudoKuRtn) {
           return resultValidatorService.checkResult(sudoKuRtn.getData());
         }
+
 }
 
