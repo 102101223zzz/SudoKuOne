@@ -10,7 +10,7 @@ public class CreateTerminalMatrixServiceImpl implements CreateTerminalMatrixServ
 
         public static int SRN = (int) Math.sqrt(Constants.MATRIX_SIZE);
 
-        public static int [][] matrix = null;
+        public  int [][] matrix = null;
 
         public int[][] createTerminalMatrix(){
             matrix = new int[Constants.MATRIX_SIZE][Constants.MATRIX_SIZE];

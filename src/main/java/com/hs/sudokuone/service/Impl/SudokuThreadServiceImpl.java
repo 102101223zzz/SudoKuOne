@@ -21,7 +21,8 @@ import java.util.concurrent.locks.ReentrantLock;
 @Service
 public class SudokuThreadServiceImpl implements Runnable{
 
-    private  List<SudoKuRtn> l1=new ArrayList<>();
+    private  List<int[][]> l1=new ArrayList<>();
+    private  List<int[][]> l2=new ArrayList<>();//题解
     private final ReentrantLock lock=new ReentrantLock();
     private int difficulty;
     public void setDifficulty(int difficulty)
@@ -30,14 +31,15 @@ public class SudokuThreadServiceImpl implements Runnable{
     }
 
     @Autowired
-    NewSudokuService newSudokuService;
+    NewSudokuServiceImpl newSudokuService;
     @Override
     public void run()
     {
             try {
                 lock.lock();
-                this.l1.add(newSudokuService.NewSudoku(difficulty));
-                System.out.println("当前的"+l1.size());
+                SudoKuRtn sudoKuRtn=newSudokuService.NewSudoku(difficulty);
+                this.l1.add(sudoKuRtn.getData());
+                this.l2.add(sudoKuRtn.getSolve());
             }finally {
                 lock.unlock();
             }

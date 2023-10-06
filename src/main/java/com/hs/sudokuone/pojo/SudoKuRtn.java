@@ -12,5 +12,6 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class SudoKuRtn {
     int [][] data;//[9][9]
+    int [][] Solve;
     LocalDateTime time;
 }

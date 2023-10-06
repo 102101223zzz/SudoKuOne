@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="">
 <head>
     <meta charset="UTF-8">
     <title>游戏页面</title>
@@ -72,6 +72,17 @@
             font-size: 24px;
             cursor: pointer;
         }
+        .Solve
+        {
+            padding: 10px 20px;
+            background-color: #14d8ea;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
         .cell {
             width: 30px; /* 单元格宽度 */
             height: 30px; /* 单元格高度 */
@@ -124,6 +135,9 @@
         .hardButton:hover {
             background-color: #ecc96a;
         }
+        .Solve:hover {
+            background-color: #ecc96a;
+        }
     .submit-button:hover {
       background-color: #ecc96a;
     }
@@ -144,9 +158,6 @@
     .music-button:hover {
       background-color: #ecc96a;
     }
-
-
-
         #timer {
       position: absolute;
       top: 10px;
@@ -155,8 +166,8 @@
       font-family: Arial, Helvetica, sans-serif;
       color: rgb(255, 255, 255);
     }
+        </style>
 
-    </style>
     <script>
         function redirect(diff){
             let url="NewSudoku?difficulty=";
@@ -174,28 +185,43 @@
             console.log(url)
             window.location.href = url;
         }
+        function handleCellClick(event) {
+            var cell = event.target;
+            var rowIndex = cell.cells.length; // 获取单元格所在行的索引
+            var colIndex = cell.cells[0].cellIndex;
+        }
+
         function editCell(cell) {
-            if (cell.innerHTML.trim() === '') {
+            if(cell.getAttribute("data-id")==="cell-1"&&cell.innerHTML.trim()==='')
+                cell.setAttribute('data-id', "cell-2");
+            if(cell.getAttribute("data-id")==="cell-2")
+            {
+                // 创建输入框元素
+
                 var input = document.createElement('input');
-                input.type = 'text';
+                input.type = 'number';
                 input.value = '';
                 input.style.width = '100%';
                 input.style.textAlign = 'center';
-                input.onkeypress = function (event) {
-                    var charCode = event.which ? event.which : event.keyCode;
-                    if (charCode < 48 || charCode > 57) {
-                        event.preventDefault();
+
+                // 添加 oninput 事件处理函数
+                input.oninput = function () {
+                    var value = input.value;
+                    // 判断输入的值是否在 1-9 之间
+                    if (value > 9 || value < 1) {
+                        cell.innerHTML = " "; // 不在该范围内，置为空格
+                    } else {
+                        cell.innerHTML = input.value === '' ? ' ' : input.value; // 更新单元格内容
                     }
                 };
-                input.onblur = function () {
-                    cell.innerHTML = input.value === '' ? ' ' : input.value;
-                };
+               input.addEventListener("blur",function (){
+                   cell.innerHTML = input.value === '' ? ' ' : input.value; // 更新单元格内容
+               })
                 cell.innerHTML = ' ';
                 cell.appendChild(input);
                 input.focus();
             }
         }
-
         var startTime;
         var timerInterval;
 
@@ -218,7 +244,11 @@
             // 更新计时器显示
             document.getElementById("timer").textContent = hours + ":" + minutes + ":" + seconds;
         }
-
+         function direct(){
+            let url ="GetSolve"
+             console.log(url)
+             window.location.href = url;
+         }
         function stopTimer() {
             clearInterval(timerInterval);
         }
@@ -250,17 +280,19 @@
     <button id="easy-button" class="easyButton" value="1" onclick="redirect(1)">简单</button>
     <button id="medium-button" class="mediumButton"value="2" onclick="redirect(2)">中等</button>
     <button id="hard-button" class="hardButton"value="2" onclick="redirect(3)">困难</button>
+    <button id="Solve" class="Solve"value="2" onclick="direct()">题解</button>
 </div>
-
 <div class="sudoku-area">
+    <input type="hidden" id="sudokuSolveList" th:value="${sudokuSolveList}" name="sudokuSolveList" />
     <div th:each="sudokuBoard : ${sudokuList}" class="sudoku-container">
         <table>
             <tbody>
-            <tr th:each="row : ${sudokuBoard}">
+            <tr th:each="row : ${sudokuBoard}" >
                 <td th:each="cell : ${row}" class="cell"
                     th:classappend="${cell == 0} ? 'editable' : ''"
                     th:text="${cell == 0} ? ' ' : ${cell}"
-                    onclick="editCell(this)"></td>
+                    onclick="editCell(this)"
+                    data-id="cell-1"></td>
             </tr>
             </tbody>
         </table>
@@ -268,8 +300,6 @@
 
     </div>
 </div>
-
-
 <div id="timer">00:00:00</div>
 
 </body>
