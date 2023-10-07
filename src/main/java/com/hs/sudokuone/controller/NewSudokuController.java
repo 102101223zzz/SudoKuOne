@@ -64,10 +64,10 @@ public class NewSudokuController {
     public String Hello() {
         return "helloWord";
     }
-    @RequestMapping("/test")
+    @RequestMapping("/index")
     public String test(Model model) {
         model.addAttribute("msg","zzzz");
-        return "3";
+        return "index";
     }
     @RequestMapping("/GetSolve")
     public String GetSolve(Model model) {
