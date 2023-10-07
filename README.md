@@ -1,4 +1,4 @@
 端口号为8999
-访问localhost:8999/test则可以跳到首页,点击开始游戏默认难度为1，选择其他难度则跳转到对应难度的页面
+访问localhost:8999则可以跳到首页,点击开始游戏默认难度为1，选择其他难度则跳转到对应难度的页面
 controller为对外的接口的软件包，NewSudokuController中的createTerminalMatrix为返回九个随机生成的数独矩阵
 RecordController由于只需要可以解决，不需要可以玩所以暂时用不到。# SudoKuOne
